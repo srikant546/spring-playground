@@ -4,9 +4,6 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
-//		maven {
-//			url 'https://artifactory.global.dish.com/artifactory/repo'
-//		}
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -24,9 +21,6 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
-//	maven {
-//		url 'https://artifactory.global.dish.com/artifactory/repo'
-//	}
 }
 
 

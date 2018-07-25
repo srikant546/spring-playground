@@ -11,4 +11,9 @@ public class PagesController {
         return "Hello World";
     }
 
+    @GetMapping("/math/pi")
+    public double getPi() {
+        return 3.141592653589793;
+    }
+
 }
