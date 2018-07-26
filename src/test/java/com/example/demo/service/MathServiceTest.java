@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 
 import static java.util.Arrays.asList;
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringRunner.class)
@@ -55,5 +56,24 @@ public class MathServiceTest {
     {
         assertTrue("MathService.volume did not work", mathService.volume(6, 7, 8).equals("The volume of a 6x7x8 rectangle is 336"));
     }
+
+    @Test
+    public void testMathServiceCircleArea()
+    {
+        assertTrue("MathService.area did not work", mathService.area("circle", 4, 1, 1).equals("Area of a circle with a radius of 4 is 50.26548"));
+    }
+
+    @Test
+    public void testMathServiceRectangleArea()
+    {
+        assertTrue("MathService.area did not work", mathService.area("rectangle", 0, 4, 7).equals("Area of a 4x7 rectangle is 28"));
+    }
+
+    @Test
+    public void testMathServiceInvalidRectangleArea()
+    {
+        assertEquals("Invalid", mathService.area("rectangle", 0, 4, 0));
+    }
+
 
 }

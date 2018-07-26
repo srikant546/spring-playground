@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.service.MathService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +15,6 @@ public class MathController {
 
     @Autowired
     MathService mathService;
-
-    @GetMapping("/pi")
-    public double getPi() {
-        return 3.141592653589793;
-    }
 
     @GetMapping("/calculate")
     public String calculate( @RequestParam(value = "operation", defaultValue = "null") String operation,
@@ -53,4 +49,16 @@ public class MathController {
     public String volume (@PathVariable int length, @PathVariable int height,  @PathVariable int breath) {
         return mathService.volume(length, height, breath);
     }
+
+    @GetMapping("/pi")
+    public String getPi() {
+        return mathService.getPi();
+    }
+
+    @PostMapping(value = "/area", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String volume (@RequestParam String type, @RequestParam(defaultValue = "0") int radius,
+                          @RequestParam(defaultValue = "0") int width, @RequestParam(defaultValue = "0") int height) {
+        return mathService.area(type, radius, width, height);
+    }
+
 }
