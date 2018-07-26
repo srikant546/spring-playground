@@ -50,4 +50,10 @@ public class MathServiceTest {
         assertTrue("MathService.devide did not work", mathService.divide(6, 3).equals("6 / 3 = 2"));
     }
 
+    @Test
+    public void testMathServiceVolume()
+    {
+        assertTrue("MathService.volume did not work", mathService.volume(6, 7, 8).equals("The volume of a 6x7x8 rectangle is 336"));
+    }
+
 }

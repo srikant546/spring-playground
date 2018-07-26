@@ -15,8 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest({ PagesController.class, MathService.class } )
-public class PagesControllerTest {
+@WebMvcTest({ MathController.class, MathService.class } )
+public class MathControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -87,4 +87,25 @@ public class PagesControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("4 + 5 + 6 = 15"));
     }
+
+    @Test
+    public void testVolumePost() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.post("/math/volume/3/4/5");
+
+        this.mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+
+    }
+
+    @Test
+    public void testVolumePatch() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.patch("/math/volume/6/7/8");
+
+        this.mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 6x7x8 rectangle is 336"));
+
+    }
+
 }

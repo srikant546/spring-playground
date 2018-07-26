@@ -28,4 +28,8 @@ public class MathService {
         }
         return output + " = " + total;
     }
+
+    public String volume (int l, int b, int h) {
+        return "The volume of a " + l + "x" + b + "x" + h + " rectangle is " + (l*b*h);
+    }
 }
