@@ -1,7 +1,9 @@
 package com.example.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -25,19 +27,17 @@ public class Flight {
         return departs;
     }
 
+    @JsonProperty("tickets")
     public List<Ticket> getTickets() {
         return tickets;
     }
 
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Ticket {
 
         private Person passenger;
         private int price;
-
-        public Ticket(Person passangers, int price) {
-            this.passenger = passangers;
-            this.price = price;
-        }
 
         public Person getPassenger() {
             return passenger;
@@ -50,14 +50,11 @@ public class Flight {
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Person {
         private String firstName;
         private String lastName;
-
-        public Person(String firstName, String lastName) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
 
         public String getFirstName() {
             return firstName;
