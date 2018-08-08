@@ -22,6 +22,7 @@ import javax.transaction.Transactional;
 import java.util.Date;
 
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -54,6 +55,25 @@ public class LessonControllerTest {
         this.mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(1)));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void update() throws Exception {
+
+        String json = "{\n" +
+                "        \"title\": \"Requests and Responses\"\n" +
+                "    }";
+
+        MockHttpServletRequestBuilder request = patch("/lessons/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        this.mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", equalTo("Requests and Responses")));
 
     }
 
