@@ -26,6 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static sun.security.krb5.Confounder.intValue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -94,6 +95,34 @@ public class LessonControllerTest {
         this.mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id", equalTo(lesson.getId().intValue()) ));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void two_dates_return_lessons_list() throws Exception {
+
+        MockHttpServletRequestBuilder request = get("/lessons/between?date1=2014-01-01&date2=2017-12-31")
+                .contentType(MediaType.APPLICATION_JSON);
+
+        this.mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id", equalTo(2) ));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void find_lesson_returnLesson() throws Exception {
+
+        MockHttpServletRequestBuilder request = get("/lessons/find/SQL")
+                .contentType(MediaType.APPLICATION_JSON);
+
+        this.mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", equalTo(2) ));
 
     }
 
