@@ -11,4 +11,5 @@ public class AppConfig {
     public WordCounter wordCounter() {
         return new WordCounter();
     }
+
 }

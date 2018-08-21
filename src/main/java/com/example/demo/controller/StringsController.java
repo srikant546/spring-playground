@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-public class WordCounterController {
+public class StringsController {
 
     ApplicationContext factory = new AnnotationConfigApplicationContext(AppConfig.class);
 
