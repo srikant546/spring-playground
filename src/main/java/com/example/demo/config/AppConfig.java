@@ -8,6 +8,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
+
+    @Bean
+    public WordCountConfig wordCountConfig() { return new WordCountConfig(); }
+
     @Bean
     public WordCounter wordCounter() {
         return new WordCounter();

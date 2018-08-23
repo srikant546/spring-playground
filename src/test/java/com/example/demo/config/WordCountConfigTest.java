@@ -1,15 +1,13 @@
-package com.example.demo.service;
+package com.example.demo.config;
 
-import com.example.demo.config.AppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -21,14 +19,17 @@ import static org.junit.Assert.*;
         "wordCount.words.skip[2]=a"
 })
 @SpringBootTest
-public class WordCounterTest {
+public class WordCountConfigTest {
 
     @Autowired
-    AppConfig appConfig;
+    WordCountConfig wordCountConfig;
 
-    @Test
-    public void count() throws Exception {
-        assertTrue("Did not work",appConfig.wordCounter().count("hello world").size() == 2);
-    }
+     @Test
+    public void testWordCountConfig_with_testProperties_then_return_testProperties () {
+
+         assertThat(wordCountConfig.getWords().getSkip(), contains("in", "an", "a"));
+         assertTrue(wordCountConfig.isCaseSensitive());
+     }
+
 
 }
