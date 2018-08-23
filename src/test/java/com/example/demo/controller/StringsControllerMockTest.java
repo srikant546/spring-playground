@@ -2,9 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.config.AppConfig;
 import com.example.demo.service.WordCounter;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -16,7 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -24,10 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(StringsController.class)
-public class StringsControllerTest {
-
-    @Autowired
-    StringsController stringsController;
+public class StringsControllerMockTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -35,55 +36,26 @@ public class StringsControllerTest {
     @MockBean
     AppConfig appConfig;
 
-
     @MockBean
     WordCounter wordCounter;
-
-    @Test
-    public void count() throws Exception {
-
-        MockHttpServletRequestBuilder request = post("/words/count")
-                .contentType(MediaType.TEXT_PLAIN)
-                .content("hello world");
-
-        mockMvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.hello", equalTo(1)));
-
-    }
-
-    @Test
-    public void countWords() throws Exception {
-
-        MockHttpServletRequestBuilder request = post("/words/count")
-                .contentType(MediaType.TEXT_PLAIN)
-                .content("hello world");
-
-        mockMvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.hello", equalTo(1)));
-
-    }
-
 
     @Test
     public void countWordsMockService() throws Exception {
 
         Map<String, Integer> result = new HashMap<>();
+        result.put("the", 1);
 
-        result.put("hello", 1);
-
-        when(wordCounter.count("hello")).thenReturn(result); 
+        when(appConfig.wordCounter()).thenReturn(wordCounter);
+        when(wordCounter.count("sboot")).thenReturn(result);
 
         MockHttpServletRequestBuilder request = post("/words/count")
                 .contentType(MediaType.TEXT_PLAIN)
-                .content("hello");
+                .content("sboot");
 
         mockMvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.hello", equalTo(1)));
+                .andExpect(status().isOk());
+                //.andExpect(jsonPath("$.the", equalTo(1)));
 
     }
-
 
 }

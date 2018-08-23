@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.config.AppConfig;
 import com.example.demo.service.WordCounter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +15,11 @@ import java.util.Map;
 @RestController
 public class StringsController {
 
-    ApplicationContext factory = new AnnotationConfigApplicationContext(AppConfig.class);
-
-    WordCounter wordCounter = factory.getBean(WordCounter.class);
+    @Autowired
+    WordCounter wordCounter;
 
     @RequestMapping("/words/count")
-    public Map<String, Integer> count (@RequestBody String words, WordCounter wordCounter) {
+    public Map<String, Integer> count (@RequestBody String words) {
         return wordCounter.count(words);
     }
 
