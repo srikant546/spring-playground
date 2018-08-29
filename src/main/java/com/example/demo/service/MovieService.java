@@ -19,6 +19,10 @@ public class MovieService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
+
     public Object getByMovieName (String movieName) {
 
         String url = "http://www.omdbapi.com/?apikey=d349c827&s=" + movieName;
