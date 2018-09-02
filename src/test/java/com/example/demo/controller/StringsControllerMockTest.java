@@ -28,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(StringsController.class)
+@AutoConfigureMockMvc(secure=false)
 public class StringsControllerMockTest {
 
     @Autowired

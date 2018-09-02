@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.entities.Lesson;
 import com.example.demo.repository.LessonRepository;
+import com.example.demo.service.LessonService;
 import com.example.demo.views.Views;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -18,11 +20,8 @@ import java.util.Optional;
 @RequestMapping("/lessons")
 public class LessonController {
 
-    private final LessonRepository repository;
-
-    public LessonController(LessonRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    LessonService repository;
 
     @GetMapping("")
     public Iterable<Lesson> all() {

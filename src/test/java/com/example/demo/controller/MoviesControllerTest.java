@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.service.MovieService;
 import org.junit.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ import static sun.jvm.hotspot.runtime.VMOps.Verify;
 
 
 @WebMvcTest({MovieService.class, MoviesController.class})
+@AutoConfigureMockMvc(secure=false)
 public class MoviesControllerTest {
 
     MovieService movieService = new MovieService();
