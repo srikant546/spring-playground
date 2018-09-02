@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.controller.FlightController;
 import com.example.demo.entities.Flight;
 import com.example.demo.service.FlightService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -27,15 +25,13 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest( {FlightService.class, FlightController.class, Flight.class, Flight.Ticket.class, Flight.Person.class})
 @AutoConfigureMockMvc(secure=false)
+@ActiveProfiles("test")
 public class FlightControllerTest {
 
     @Autowired

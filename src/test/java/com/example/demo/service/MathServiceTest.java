@@ -6,9 +6,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.example.demo.service.*;
-
-import java.util.ArrayList;
 
 import static java.util.Arrays.asList;
 import static junit.framework.TestCase.assertEquals;

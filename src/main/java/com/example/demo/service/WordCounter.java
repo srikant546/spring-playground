@@ -1,12 +1,10 @@
 package com.example.demo.service;
-import com.example.demo.config.WordCountConfig;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collector;
+import com.example.demo.config.WordCountConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Arrays;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class WordCounter {

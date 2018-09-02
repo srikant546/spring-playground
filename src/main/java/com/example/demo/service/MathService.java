@@ -1,11 +1,9 @@
 package com.example.demo.service;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class MathService {

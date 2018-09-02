@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
@@ -18,6 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.httpBasic();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().mvcMatchers("/flights/**", "/math/**", "/lessons/**").permitAll();
+        http.authorizeRequests().mvcMatchers("/admin/**").hasRole("ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
     }
 
@@ -25,9 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("employee").password("employee-password").roles("EMPLOYEE")
+                .withUser("employee").password("{noop}employee-password").roles("EMPLOYEE")
                 .and()
-                .withUser("boss").password("boss-password").roles();
+                .withUser("boss").password("{noop}boss-password").roles("ADMIN");
 
     }
 }

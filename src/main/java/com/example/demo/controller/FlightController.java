@@ -1,15 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.entities.Flight;
-
-
 import com.example.demo.service.FlightService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 

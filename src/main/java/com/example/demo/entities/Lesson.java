@@ -2,7 +2,6 @@ package com.example.demo.entities;
 
 import com.example.demo.views.Views;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
