@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entities.Lesson;
 import com.example.demo.repository.LessonRepository;
-import com.example.demo.service.LessonService;
 import com.example.demo.views.Views;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import java.util.Optional;
 public class LessonController {
 
     @Autowired
-    LessonService repository;
+    LessonRepository repository;
 
     @GetMapping("")
     public Iterable<Lesson> all() {

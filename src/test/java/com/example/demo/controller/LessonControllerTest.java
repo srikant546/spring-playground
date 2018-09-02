@@ -1,19 +1,15 @@
-/*
 package com.example.demo.controller;
 
 import com.example.demo.entities.Lesson;
 import com.example.demo.repository.LessonRepository;
-import com.example.demo.service.LessonService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -23,7 +19,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import javax.transaction.Transactional;
 
-import java.security.Security;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -34,8 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static sun.security.krb5.Confounder.intValue;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest
-@AutoConfigureMockMvc(secure=false)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class LessonControllerTest {
 
     @Autowired
@@ -43,8 +38,6 @@ public class LessonControllerTest {
 
     @Autowired
     LessonRepository repository;
-
-
 
     @Test
     @Transactional
@@ -134,5 +127,3 @@ public class LessonControllerTest {
     }
 
 }
-
-*/
