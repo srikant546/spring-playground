@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -17,7 +18,7 @@ public class DemoApplication {
 
 	@Bean
 	@Profile("default")
-	public CommandLineRunner seedData(EmployeeRepository employeeRepository) {
+	public CommandLineRunner seedData(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder) {
 		return (args) -> {
 			employeeRepository.deleteAll();
 
@@ -25,7 +26,7 @@ public class DemoApplication {
 			employee.setName("Employee");
 			employee.setSalary(24);
 			employee.setUsername("employee");
-			employee.setPassword("{noop}my-employee-password");
+			employee.setPassword(passwordEncoder.encode("my-employee-password"));
 			employee.setRole("EMPLOYEE");
 			employeeRepository.save(employee);
 
@@ -33,7 +34,7 @@ public class DemoApplication {
 			boss.setName("Boss");
 			boss.setSalary(240);
 			boss.setUsername("boss");
-			boss.setPassword("{noop}my-boss-password");
+			boss.setPassword(passwordEncoder.encode("my-boss-password"));
 			boss.setRole("MANAGER");
 			employeeRepository.save(boss);
 
