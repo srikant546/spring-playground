@@ -68,4 +68,19 @@ public class EmployeeControllerTest {
 
     }
 
+
+//    @Test
+//    @WithAnonymousUser
+//    public void when_Anonymus_return_200() throws Exception {
+//
+//        //Given
+//        RequestBuilder requestBuilder = get("employees");
+//
+//        //When
+//        this.mvc.perform(requestBuilder)
+//                // Then
+//                .andExpect(status().isOk());
+//
+//    }
+
 }

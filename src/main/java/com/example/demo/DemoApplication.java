@@ -20,10 +20,23 @@ public class DemoApplication {
 	public CommandLineRunner seedData(EmployeeRepository employeeRepository) {
 		return (args) -> {
 			employeeRepository.deleteAll();
+
 			Employee employee = new Employee();
 			employee.setName("Employee");
 			employee.setSalary(24);
+			employee.setUsername("employee");
+			employee.setPassword("{noop}my-employee-password");
+			employee.setRole("EMPLOYEE");
 			employeeRepository.save(employee);
+
+			Employee boss = new Employee();
+			boss.setName("Boss");
+			boss.setSalary(240);
+			boss.setUsername("boss");
+			boss.setPassword("{noop}my-boss-password");
+			boss.setRole("MANAGER");
+			employeeRepository.save(boss);
+
 		};
 	}
 }
