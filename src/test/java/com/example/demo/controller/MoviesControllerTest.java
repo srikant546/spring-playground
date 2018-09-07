@@ -1,46 +1,71 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.MovieService;
+import com.example.demo.config.SecurityConfig;
+import com.example.demo.entities.Movie;
+import com.example.demo.repository.IMovieRepository;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+import java.util.ArrayList;
 
-@WebMvcTest({MovieService.class, MoviesController.class})
-@AutoConfigureMockMvc(secure=false)
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+@RunWith(SpringRunner.class)
+@WebMvcTest(MoviesController.class)
 @ActiveProfiles("test")
+@AutoConfigureMockMvc(secure=false)
+@EnableAutoConfiguration(exclude = SecurityConfig.class)
 public class MoviesControllerTest {
+    private ArrayList<Movie> movies;
+    private Movie movie1;
+    private Movie movie2;
+    private Movie movie3;
 
-    MovieService movieService = new MovieService();
-
-    @Test
-    public void getMovies() throws Exception {
-
-    RestTemplate restTemplate = movieService.getRestTemplate();
-    MockRestServiceServer server = MockRestServiceServer.createServer(restTemplate);
-
-    server.expect(requestTo("http://www.omdbapi.com/?apikey=d349c827&s=harry"))
-            .andExpect(method(HttpMethod.GET))
-            .andRespond(withSuccess("{\"Search\": [ {\"Title\": \"Harry Potter and the Deathly Hallows: Part 2\"}]}", MediaType.APPLICATION_JSON));
-
-    Object o = movieService.getByMovieName("harry");
-
-    assertThat(o.toString(), equalTo("[{Title=Harry Potter and the Deathly Hallows: Part 2}]"));
-
-
-    server.verify();
-
-
+    @Before
+    public void setUp() throws Exception {
+        movie1 = new Movie("Boss Baby");
+        movie1.setMovieId(1L);
+        movie2 = new Movie("Beauty and the Beast");
+        movie2.setMovieId(2L);
+        movie3 = new Movie("Logan");
+        movie3.setMovieId(3L);
+        movies = new ArrayList<>();
+        movies.add(movie1);
+        movies.add(movie2);
+        movies.add(movie3);
     }
 
+    @Autowired
+    private MockMvc mvc;
+
+    @MockBean
+    private IMovieRepository repo;
+
+    @Test
+    public void testHateoasIndexRoute() throws Exception {
+        when(this.repo.findAll()).thenReturn(movies);
+
+        MockHttpServletRequestBuilder request = get("/movies");
+
+        this.mvc.perform(request)
+                .andDo(print())
+                .andExpect(jsonPath("$[0].links[0].href", is("http://localhost/movies/1")))
+                .andExpect(jsonPath("$[0].links[1].href", is("http://localhost/trailers/1")))
+                .andExpect(jsonPath("$[1].links[1].href", is("http://localhost/trailers/2")))
+                .andExpect(jsonPath("$[2].links[0].href", is("http://localhost/movies/3")));
+    }
 }

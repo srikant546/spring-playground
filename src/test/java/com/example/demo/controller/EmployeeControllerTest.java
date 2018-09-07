@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.config.SecurityConfig;
 import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.service.EmployeeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class EmployeeControllerTest {
 
     @MockBean
     EmployeeRepository employeeRepository;
+
+    @MockBean
+    EmployeeService employeeService;
 
     @Test
     public void when_Manager_return_200() throws Exception {

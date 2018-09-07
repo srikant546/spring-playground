@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable();
         http.httpBasic();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().mvcMatchers("/flights/**", "/math/**", "/lessons/**").permitAll();
+        http.authorizeRequests().mvcMatchers("/flights/**", "/math/**", "/lessons/**", "/movies/**", "/greeting/**").permitAll();
         http.authorizeRequests().mvcMatchers("/admin/**").hasRole("ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
     }
