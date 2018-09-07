@@ -1,6 +1,5 @@
-package com.example.demo.controller;
+package com.example.demo.movies;
 
-import com.example.demo.entities.Trailer;
 import com.example.demo.repository.ITrailerRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.SecurityConfig;
-import com.example.demo.entities.Movie;
+import com.example.demo.movies.Movie;
+import com.example.demo.movies.MoviesController;
 import com.example.demo.repository.IMovieRepository;
 import org.junit.Before;
 import org.junit.Test;

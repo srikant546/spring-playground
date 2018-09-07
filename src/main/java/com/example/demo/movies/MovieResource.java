@@ -1,8 +1,6 @@
-package com.example.demo.entities;
+package com.example.demo.movies;
 
 
-import com.example.demo.controller.MoviesController;
-import com.example.demo.controller.TrailerController;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.hateoas.ResourceSupport;

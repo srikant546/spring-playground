@@ -1,7 +1,5 @@
-package com.example.demo.controller;
+package com.example.demo.movies;
 
-import com.example.demo.entities.Movie;
-import com.example.demo.entities.MovieResource;
 import com.example.demo.repository.IMovieRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
