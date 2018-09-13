@@ -89,7 +89,7 @@ public class AlbumsControllerTest {
 
         this.mvc.perform(requestBuilder)
                 .andExpect(status().isOk());
-        
+
     }
 
 }

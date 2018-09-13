@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -27,6 +28,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc(secure=false)
 @ActiveProfiles("test")
+@TestPropertySource(properties = {
+        "wordCount.caseSensitive=true",
+        "wordCount.words.skip[0]=the",
+        "wordCount.words.skip[1]=an",
+        "wordCount.words.skip[2]=a"
+})
+
+
 public class StringsControllerRealClassTest {
     @Autowired
     StringsController stringsController;
@@ -47,15 +56,16 @@ public class StringsControllerRealClassTest {
     @Test
     public void testWordCountWithOutMock() throws Exception {
         Map<String, Integer> map = new HashMap<>();
-        map.put("hello", 1);
+        map.put("hello CAP", 1);
 
         MockHttpServletRequestBuilder request = post("/words/count")
                 .contentType(MediaType.TEXT_PLAIN)
-                .content("hello");
+                .content("hello CAP");
 
         mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.hello", equalTo(1)));
+                .andExpect(jsonPath("$.hello", equalTo(1)))
+                .andExpect(jsonPath("$.CAP", equalTo(1)));
 
     }
 }
